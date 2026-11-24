@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arafat AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ min-height:100vh;
+ background:radial-gradient(circle at 50% 20%,#192b59,#080b19 65%);
+ color:white;
+ font-family:Arial,sans-serif;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ padding:18px;
+}
+.app{
+ width:100%;max-width:480px;
+ min-height:90vh;
+ border:1px solid #344b80;
+ border-radius:25px;
+ background:#10182beF;
+ box-shadow:0 0 35px #315bff45;
+ padding:22px;
+}
+header{display:flex;align-items:center;gap:12px}
+.logo{
+ width:45px;height:45px;border-radius:15px;
+ background:linear-gradient(135deg,#00d9ff,#8b48ff);
+ display:grid;place-items:center;font-size:25px;
+}
+h1{font-size:23px;margin:0}
+small{color:#8eabda}
+.status{margin-left:auto;color:#55f5b0;font-size:12px}
+.robot{
+ margin:35px auto 15px;
+ width:155px;height:155px;
+ border-radius:45px;
+ background:linear-gradient(145deg,#9a6cff,#20cfff);
+ box-shadow:0 0 45px #7a5bff80;
+ display:flex;align-items:center;justify-content:center;
+ animation:float 3s ease-in-out infinite;
+}
+.face{
+ width:112px;height:83px;border-radius:30px;
+ background:#10172d;display:flex;
+ justify-content:center;align-items:center;gap:25px;
+}
+.eye{
+ width:15px;height:22px;border-radius:50%;
+ background:#36eaff;box-shadow:0 0 15px #36eaff;
+}
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-12px)}
+}
+.welcome{text-align:center}
+.welcome h2{font-size:25px;margin:12px 0}
+.welcome p{color:#a7b6d4;font-size:14px}
+.screen{
+ height:260px;overflow-y:auto;
+ background:#080e1c;border:1px solid #273d68;
+ border-radius:17px;padding:14px;margin-top:22px;
+}
+.msg{padding:11px 13px;border-radius:13px;
+ margin:10px 0;max-width:90%;font-size:14px;line-height:1.6}
+.bot{background:#1b2a49;color:#dceaff}
+.user{background:#5540a9;margin-left:auto}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.quick button{
+ background:#17294b;color:#c9dcff;
+ border:1px solid #38558d;border-radius:20px;
+ padding:9px 12px;
+}
+.inputrow{display:flex;gap:8px;margin-top:15px}
+input{
+ flex:1;min-width:0;padding:14px;
+ border-radius:13px;border:1px solid #4565a1;
+ background:#080e1c;color:white;font-size:15px;
+ outline:none;
+}
+.send{
+ border:0;border-radius:13px;padding:0 18px;
+ background:linear-gradient(135deg,#00bde8,#7950ff);
+ color:white;font-size:20px;
+}
+footer{text-align:center;color:#7186b2;font-size:11px;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="logo">🤖</div>
+ <div>
+  <h1>Arafat AI</h1>
+  <small>Your Personal AI Assistant</small>
+ </div>
+ <div class="status">● Online</div>
+</header>
+
+<div class="robot">
+ <div class="face">
+  <div class="eye"></div>
+  <div class="eye"></div>
+ </div>
+</div>
+
+<div class="welcome">
+ <h2>Welcome to Arafat AI</h2>
+ <p>হ্যালো! আমি তোমার AI সহকারী। কীভাবে সাহায্য করতে পারি?</p>
+</div>
+
+<div class="screen" id="screen">
+ <div class="msg bot">আসসালামু আলাইকুম! ❤️ আমি Arafat AI। আমাকে কিছু জিজ্ঞেস করো!</div>
+</div>
+
+<div class="quick">
+ <button onclick="ask('তোমার নাম কী?')">তোমার নাম কী?</button>
+ <button onclick="ask('তুমি কী করতে পারো?')">তুমি কী পারো?</button>
+ <button onclick="ask('একটি সুন্দর জোক বলো')">একটি জোক বলো</button>
+</div>
+
+<div class="inputrow">
+ <input id="question" placeholder="এখানে কিছু লিখো...">
+ <button class="send" onclick="send()">➤</button>
+</div>
+
+<footer>Made with ❤️ by Arafat | Arafat AI</footer>
+</div>
+
+<script>
+const screen=document.getElementById('screen');
+const input=document.getElementById('question');
+
+function add(text,type){
+ const div=document.createElement('div');
+ div.className='msg '+type;
+ div.textContent=text;
+ screen.appendChild(div);
+ screen.scrollTop=screen.scrollHeight;
+}
+
+function ask(text){
+ input.value=text;
+ send();
+}
+
+function send(){
+ const q=input.value.trim();
+ if(!q)return;
+ add(q,'user');
+ input.value='';
+
+ setTimeout(()=>{
+  let answer='ধন্যবাদ! ❤️ তোমার কথাটি বুঝেছি।';
+  const s=q.toLowerCase();
+
+  if(s.includes('নাম'))
+   answer='আমার নাম Arafat AI। আমি তোমার ব্যক্তিগত সহকারী! 🤖';
+  else if(s.includes('পারো'))
+   answer='আমি প্রশ্নের উত্তর, লেখা তৈরি, আইডিয়া এবং বিভিন্ন কাজে সাহায্য করতে পারি।';
+  else if(s.includes('জোক'))
+   answer='শিক্ষক: বলো তো, বিদ্যুৎ কোথায় থাকে? ছাত্র: বিলের কাগজে! 😂';
+  else if(s.includes('হাই')||s.includes('হ্যালো'))
+   answer='হ্যালো! ❤️ কেমন আছো?';
+  else
+   answer='তোমার প্রশ্নটি পেয়েছি। আমি এখন ডেমো মোডে আছি। প্রকৃত AI উত্তর পেতে AI API সংযোগ করতে হবে।';
+
+  add(answer,'bot');
+ },500);
+}
+input.addEventListener('keydown',e=>{
+ if(e.key==='Enter')send();
+});
+</script>
+</body>
+</html>
